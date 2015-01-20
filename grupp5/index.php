@@ -6,7 +6,13 @@
     </head>
     <body>
         <?php
-        // put your code here
+            $file = fopen("ant/phpcsvfil.csv", "r");
+            
+            while(! feof($file)){
+                print_r(fgetcsv($file, 1000, ";"));
+            }
+            
+            fclose($file);
         ?>
     </body>
 </html>
