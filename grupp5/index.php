@@ -5,6 +5,18 @@
         <title></title>
     </head>
     <body>
+        
+        <table>
+            <form method='POST'>
+                <br />
+                <br />
+                <input type="text" placeholder="Sök klass" name="searchkls">
+                <input type="submit" value="SÖK" name="knapp">
+                <br />
+            </form>     
+            <br />
+        </table>
+        
         <?php
         define("DB_SERVER", "localhost");
         define("DB_USER", "root");
@@ -13,32 +25,47 @@
 
         $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
 
-        $file = fopen("ant/phpcsvfil.csv", "r");
-
-        while (!feof($file)) {
-            //print_r(fgetcsv($file, 1000, ";"));
-            $arr = fgetcsv($file, 1000, ";");
-            //var_dump($arr);
-            echo "<br>";
-            echo "<tt>namn   : " . $arr[0] . "<br>";
-            echo "     enamn: " . $arr[1] . "<br>";
-            echo "     anvnam: " . $arr[2] . "<br>";
-            echo "   klass: " . $arr[3] . "<br><br></tt>";
-
-//            $sql = "SELECT * FROM 'inlog' WHERE klass='TE12E'";
-//            $sql = "INSERT INTO `kontakt`(`id`, `namn`, `enamn`, `anvnam`, `klass`) VALUES ('','" . $namn . "','" . $enamn . "','" . $anvnam . "','" . $klass . "')";
-
-
-
-            $sql = "INSERT INTO `inlog`(`id`,`namn`, `enamn`, `anvnam`, `klass`) VALUES ('','" . $arr[0] . "','" . $arr[1] . "','" . $arr[2] . "','" . $arr[3] . "')";
-            echo $sql;
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute();
+        if(isset($_POST["knapp"])){
+            $form1 = $_POST["searchkls"];
+//            var_dump($form1);
         }
-        fclose($file);
-        
-        
-        
+
+        $sql = "SELECT * FROM inlog WHERE klass='$form1'";
+//        echo $sql;
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        $klslist = $stmt->fetchAll();
+        echo "<table class='bord' border='1'>";
+        foreach ($klslist as $person) {
+          
+                        echo "<tr>";
+                        echo "<td>";
+                         echo $person["id"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["namn"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["enamn"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["anvnam"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["losord"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["iv"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["mail"];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $person["klass"];
+                        echo "</td>";
+                        echo "</tr>";
+                        echo "</form>";
+        }
         ?>
 
     </body>
