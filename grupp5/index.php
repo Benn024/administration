@@ -20,7 +20,7 @@
         <?php
         define("DB_SERVER", "localhost");
         define("DB_USER", "root");
-        define("DB_NAME", "login");
+        define("DB_NAME", "berzanapp");
         define("DB_PASSWORD", "");
 
         $dbh = new PDO('mysql:dbname=' . DB_NAME . ';host=' . DB_SERVER . ';charset=utf8', DB_USER, DB_PASSWORD);
@@ -30,7 +30,7 @@
 //            var_dump($form1);
         }
 
-        $sql = "SELECT * FROM inlog WHERE klass='$form1'";
+        $sql = "SELECT * FROM users WHERE klass='$form1'";
 //        echo $sql;
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
@@ -40,19 +40,16 @@
           
                         echo "<tr>";
                         echo "<td>";
-                         echo $person["id"];
+                        echo $person["fornamn"];
                         echo "</td>";
                         echo "<td>";
-                        echo $person["namn"];
+                        echo $person["efternamn"];
                         echo "</td>";
                         echo "<td>";
-                        echo $person["enamn"];
+                        echo $person["anvnamn"];
                         echo "</td>";
                         echo "<td>";
-                        echo $person["anvnam"];
-                        echo "</td>";
-                        echo "<td>";
-                        echo $person["losord"];
+                        echo $person["losenord"];
                         echo "</td>";
                         echo "<td>";
                         echo $person["iv"];
