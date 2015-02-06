@@ -5,7 +5,6 @@
         <title></title>
     </head>
     <body>
-        
         <table>
             <form method='POST'>
                 <br />
@@ -16,6 +15,8 @@
             </form>     
             <br />
         </table>
+        
+        
         
         <?php
         define("DB_SERVER", "localhost");

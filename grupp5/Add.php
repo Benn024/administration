@@ -24,29 +24,15 @@ while (!feof($file)) {
     $arr = fgetcsv($file, 1000, ";");
 
 
-//    if (in_array($arr[2], $gamla)){
-//        echo $arr[2] . " sant. finns";
-//        exit();
-//    } else {
-//      echo $arr[2] . " finns ej. lägger till.";
-//      exit();
-//    }
-//exit();
-
     echo "<br>";
     echo "<tt>fornamn   : " . $arr[0] . "<br>";
     echo "     efternamn: " . $arr[1] . "<br>";
     echo "     anvnamn: " . $arr[2] . "<br>";
     echo "   klass: " . $arr[3] . "<br><br></tt>";
-    $sql = "INSERT INTO `users`(`fornamn`, `efternamn`, `anvnamn`, `klass`) VALUES ('" . $arr[0] . "','" . $arr[1] . "','" . $arr[2] . "','" . $arr[3] . "')";
+    $sql = "INSERT INTO `users`(`fornamn`, `efternamn`, `anvnamn`, `klass`) "
+            . "VALUES ('" . $arr[0] . "','" . $arr[1] . "','" . $arr[2] . "','" . $arr[3] . "')"
+            . " ON DUPLICATE KEY UPDATE anvnamn = '" . $arr[2] . "', efternamn = '" .$arr[1]. "', fornamn = '" .$arr[0]. "'";
     
-    VALUES ('johkel123', 'Albin', 'Johansson')
-    ON DUPLICATE KEY UPDATE
-    username = "johke123",
-    surname = "uppdaterad",
-    name = "uppdaterad"
-    
-//    echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
 }
