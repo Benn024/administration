@@ -1,4 +1,4 @@
-<?php
+<?php //
 
 define("DB_SERVER", "localhost");
 define("DB_USER", "root");
@@ -40,7 +40,7 @@ if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"] == UPLOAD_ERR_O
     $File_Name = strtolower($_FILES['FileInput']['name']);
     $File_Ext = substr($File_Name, strrpos($File_Name, '.')); //get file extention
     $Time_Number = time();
-    $NewFileName = date("dmy", $Time_Number) . $File_Ext; //new file name
+    $NewFileName = date("dmy-His", $Time_Number) . $File_Ext; //new file name
 
     if (move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory . $NewFileName)) {
         // do other stuff 
@@ -65,10 +65,11 @@ if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"] == UPLOAD_ERR_O
             echo "<tt>fornamn   : " . $arr[0] . "<br>";
             echo "     efternamn: " . $arr[1] . "<br>";
             echo "     anvnamn: " . $arr[2] . "<br>";
-            echo "   klass: " . $arr[3] . "<br><br></tt>";
-            $sql = "INSERT INTO `users`(`fornamn`, `efternamn`, `anvnamn`, `klass`) "
-                    . "VALUES ('" . $arr[0] . "','" . $arr[1] . "','" . $arr[2] . "','" . $arr[3] . "')"
-                    . " ON DUPLICATE KEY UPDATE anvnamn = '" . $arr[2] . "', efternamn = '" . $arr[1] . "', fornamn = '" . $arr[0] . "'";
+            echo "     losenord: " . $arr[2] . "<br>";
+            echo "     klass: " . $arr[3] . "<br><br></tt>";
+            $sql = "INSERT INTO `users`(`fornamn`, `efternamn`, `anvnamn`, `losenord`, `klass`) "
+                    . "VALUES ('" . $arr[0] . "','" . $arr[1] . "','" . $arr[2] . "','" . $arr[2] . "','" . $arr[3] . "')"
+                    . " ON DUPLICATE KEY UPDATE anvnamn = '" . $arr[2] . "', efternamn = '" . $arr[1] . "', losenord = '" . $arr[2] . "', fornamn = '" . $arr[0] . "'";
 
             $stmt = $dbh->prepare($sql);
             $stmt->execute();

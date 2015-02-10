@@ -5,6 +5,7 @@
         <title></title>
     </head>
     <body>
+        
         <table>
             <form method='POST'>
                 <br />
@@ -15,6 +16,7 @@
             </form>     
             <br />
         </table>
+        
         
         
         
@@ -65,6 +67,5 @@
                         echo "</form>";
         }
         ?>
-
     </body>
 </html>
